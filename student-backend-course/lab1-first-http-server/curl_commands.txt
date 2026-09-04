@@ -1,0 +1,17 @@
+# Практический пример (app_example.js)
+# Запуск: npm run dev
+
+curl http://localhost:3000/
+curl http://localhost:3000/api/status
+curl http://localhost:3000/api/info
+curl http://localhost:3000/api/users/5
+curl http://localhost:3000/anything-else
+
+# Команды для тестирования эндпоинтов (вариант 14, продвинутый уровень)
+# Запуск сервера: npm run dev
+
+curl http://localhost:3000/
+curl http://localhost:3000/api/dishes
+curl http://localhost:3000/api/menus
+curl http://localhost:3000/api/dishes/5
+curl http://localhost:3000/anything-else

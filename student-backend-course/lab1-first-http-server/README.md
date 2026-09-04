@@ -84,19 +84,19 @@ app.listen(port, () => {
 
 ### Скриншоты практического примера
 #### Корневой маршрут
-![Корневой маршрут](screenshots/example-root.png)
+![Корневой маршрут](screenshots/example-root.jpg)
 
 #### /api/status
-![Status](screenshots/example-status.png)
+![Status](screenshots/example-status.jpg)
 
 #### /api/info
-![Info](screenshots/example-info.png)
+![Info](screenshots/example-info.jpg)
 
 #### /api/users/5
-![User by ID](screenshots/example-user.png)
+![User by ID](screenshots/example-user.jpg)
 
 #### 404 Not Found
-![404](screenshots/example-404.png)
+![404](screenshots/example-404.jpg)
 
 ## Выполнение индивидуального задания
 
@@ -185,19 +185,19 @@ npm run dev-example
 ### Скриншоты работы эндпоинтов
 
 **Корневой маршрут**  
-https://screenshots/example-root.png
+![Status](screenshots/variant-root.jpg)
 
-**//api/status**  
-https://screenshots/example-status.png
+**//api/dishes**  
+![Status](screenshots/variant-dishes.jpg)
 
-**/api/info**  
-https://screenshots/example-info.png 
+**/api/menus**  
+![Status](screenshots/variant-menus.jpg)
 
-**/api/users/5**  
-https://screenshots/example-user.png
+**/api/dishes/5**  
+![Status](screenshots/variant-dish-id.jpg)
 
 **404 Not Found**  
-https://screenshots/example-404.png  
+![Status](screenshots/variant-404.jpg) 
 
 
 ## Контрольные вопросы
