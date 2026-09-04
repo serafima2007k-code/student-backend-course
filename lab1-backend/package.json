@@ -1,14 +1,16 @@
 {
   "name": "lab1-backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Лабораторная работа №1 – первый HTTP-сервер",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app.js"
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "dev-example": "nodemon app_example.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Ваше имя",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
