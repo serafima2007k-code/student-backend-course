@@ -31,42 +31,43 @@
 
 ## Выполнение практического примера
 
-### Код сервера (app.js) – практический пример
+### Код сервера (app_example.js) – практический пример
 
 ```javascript
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = 3003;
 
+// Логирование (продвинутый уровень)
 app.use((req, res, next) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
   next();
 });
 
-// 1. Текстовый эндпоинт 
+// 1. Текстовый эндпоинт
 app.get('/', (req, res) => {
   res.send('Добро пожаловать на базовый сервер!');
 });
 
-// 2. JSON эндпонит 1
+// 2. JSON эндпоинт 1 — статус
 app.get('/api/status', (req, res) => {
-    res.json({ status: 'ok', uptime: process.uptime() });
+  res.json({ status: 'ok', uptime: process.uptime() });
 });
 
-// 3. JSON эндпоинт 2 (для среднего уровня)
+// 3. JSON эндпоинт 2 — информация
 app.get('/api/info', (req, res) => {
-    res.json({ author: 'Student', version: '1.0.0' });
+  res.json({ author: 'Student', version: '1.0.0' });
 });
 
-// 4. JSON эндпонит с параметром (для продвинутого уровня)
+// 4. JSON эндпоинт с параметром — пользователь по ID
 app.get('/api/users/:id', (req, res) => {
-    res.json({
-        message: 'Информация о пользователе',
-        userId: req.params.id
-    });
+  res.json({
+    message: 'Информация о пользователе',
+    userId: req.params.id
+  });
 });
 
-// Обработка 404
+// 5. Обработка 404
 app.use((req, res) => {
   res.status(404).json({ error: 'Маршрут не найден' });
 });
@@ -111,20 +112,20 @@ app.listen(port, () => {
 ```javascript
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = 3002;
 
-// Логирование (продвинутый уровень)
+// Логирование
 app.use((req, res, next) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
   next();
 });
 
-// 1. Текстовый эндпоинт
+// 1. Текстовый
 app.get('/', (req, res) => {
   res.send('Hello, студент!');
 });
 
-// 2. JSON-эндпоинт 1 – список блюд
+// 2. JSON-эндпоинт 1 — блюда
 app.get('/api/dishes', (req, res) => {
   res.json({
     dishes: [
@@ -134,7 +135,7 @@ app.get('/api/dishes', (req, res) => {
   });
 });
 
-// 3. JSON-эндпоинт 2 – список меню
+// 3. JSON-эндпоинт 2 — меню
 app.get('/api/menus', (req, res) => {
   res.json({
     menus: [
@@ -144,7 +145,7 @@ app.get('/api/menus', (req, res) => {
   });
 });
 
-// 4. Параметризированный эндпоинт – блюдо по ID
+// 4. Параметризированный — блюдо по ID
 app.get('/api/dishes/:id', (req, res) => {
   const dishId = parseInt(req.params.id);
   res.json({
@@ -159,7 +160,7 @@ app.get('/api/dishes/:id', (req, res) => {
   });
 });
 
-// 5. Обработка 404
+// 5. 404
 app.use((req, res) => {
   res.status(404).json({ error: 'Маршрут не найден' });
 });

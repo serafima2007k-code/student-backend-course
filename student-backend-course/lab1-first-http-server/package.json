@@ -4,9 +4,10 @@
   "description": "Первый HTTP-сервер на Express",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
-  },
+  "start": "node app.js",
+  "dev": "nodemon app.js",
+  "dev-example": "nodemon app_example.js"
+},
   "dependencies": {
     "express": "^4.18.2"
   },

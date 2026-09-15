@@ -1,19 +1,19 @@
 const express = require('express');
 const app = express();
-const port = 300;
+const port = 3002;
 
-// Логирование (продвинутый уровень)
+// Логирование
 app.use((req, res, next) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
   next();
 });
 
-// 1. Текстовый эндпоинт
+// 1. Текстовый
 app.get('/', (req, res) => {
   res.send('Hello, студент!');
 });
 
-// 2. JSON-эндпоинт 1 – список блюд
+// 2. JSON-эндпоинт 1 — блюда
 app.get('/api/dishes', (req, res) => {
   res.json({
     dishes: [
@@ -23,7 +23,7 @@ app.get('/api/dishes', (req, res) => {
   });
 });
 
-// 3. JSON-эндпоинт 2 – список меню
+// 3. JSON-эндпоинт 2 — меню
 app.get('/api/menus', (req, res) => {
   res.json({
     menus: [
@@ -33,7 +33,7 @@ app.get('/api/menus', (req, res) => {
   });
 });
 
-// 4. Параметризированный эндпоинт – блюдо по ID
+// 4. Параметризированный — блюдо по ID
 app.get('/api/dishes/:id', (req, res) => {
   const dishId = parseInt(req.params.id);
   res.json({
@@ -48,7 +48,7 @@ app.get('/api/dishes/:id', (req, res) => {
   });
 });
 
-// 5. Обработка 404
+// 5. 404
 app.use((req, res) => {
   res.status(404).json({ error: 'Маршрут не найден' });
 });
