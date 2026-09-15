@@ -147,19 +147,19 @@ npm run dev-example
 1. Скриншоты всех запросов из Postman с ответами
 
 **GET All Items**  
-![GET All Items](screenshots/postman1.png)
+![GET All Items](screenshots/postman1.PNG)
 
 **GET Item by ID**  
-![GET Item by ID](screenshots/postman2.png)
+![GET Item by ID](screenshots/postman2.PNG)
 
 **POST Create Item**  
-![POST Create Item](screenshots/postman3.png)
+![POST Create Item](screenshots/postman3.PNG)
 
 **PUT Update Item**  
-![PUT Update Item](screenshots/postman4.png)
+![PUT Update Item](screenshots/postman4.PNG)
 
 **DELETE Delete Item**  
-![DELETE Delete Item](screenshots/postman5.png)
+![DELETE Delete Item](screenshots/postman5.PNG)
 
 **GET Nonexistent Item (404)**  
 ![404](screenshots/postman6.jpg)
@@ -170,29 +170,29 @@ npm run dev-example
 ### 2. Testы Results (все тесты PASS)
 
 #### GET All Items
-![Test Results – GET All Items](screenshots/test1.png)
+![Test Results – GET All Items](screenshots/test1.PNG)
 
 #### GET Item by ID
-![Test Results – GET Item by ID](screenshots/тест2.png)
+![Test Results – GET Item by ID](screenshots/тест2.PNG)
 
 #### POST Create Item
-![Test Results – POST Create Item](screenshots/test3.png)
+![Test Results – POST Create Item](screenshots/test3.PNG)
 
 #### PUT Update Item
-![Test Results – PUT Update Item](screenshots/тест4.png)
+![Test Results – PUT Update Item](screenshots/тест4.PNG)
 
 #### DELETE Delete Item
-![Test Results – DELETE Delete Item](screenshots/тест5.png)
+![Test Results – DELETE Delete Item](screenshots/тест5.PNG)
 
 #### GET Nonexistent Item (404)
-![Test Results – GET Nonexistent Item (404)](screenshots/тест6.png)
+![Test Results – GET Nonexistent Item (404)](screenshots/тест6.PNG)
 
 #### POST Invalid Data (400)
-![Test Results – POST Invalid Data (400)](screenshots/тест7.png)
+![Test Results – POST Invalid Data (400)](screenshots/тест7.PNG)
 
 ### 3. Collection Runner с результатами всех тестов
 
-![Collection Runner – все тесты PASS](screenshots/res8.png)
+![Collection Runner – все тесты PASS](screenshots/res8.PNG)
 
 ---
 
