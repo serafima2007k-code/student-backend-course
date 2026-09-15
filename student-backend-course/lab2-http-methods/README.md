@@ -380,10 +380,10 @@ npm run dev
 ### Скриншоты всех запросов из Postman с ответами
 
 #### 1.1. GET All Restaurants  
-![GET All Restaurants](screenshots/вар1.png)
+![GET All Restaurants](screenshots/вар1.PNG)
 
 #### 1.2. GET Restaurant by ID
-![GET Restaurant by ID](screenshots/вар2.png)
+![GET Restaurant by ID](screenshots/вар2.PNG)
 
 #### 1.3. GET Search
 ![GET Search](screenshots/varseach1.jpg)
@@ -395,10 +395,10 @@ npm run dev
 ![GET Pagination](screenshots/varpag.jpg)
 
 #### 1.6. POST Create Restaurant
-![POST Create Restaurant](screenshots/varpost.png)
+![POST Create Restaurant](screenshots/varpost.PNG)
 
 #### 1.7. PUT Update Restaurant  
-![PUT Update Restaurant](screenshots/varput.png)
+![PUT Update Restaurant](screenshots/varput.PNG)
 
 #### 1.8. DELETE Delete Restaurant 
 ![DELETE Delete Restaurant](screenshots/vardelete.jpg)
@@ -414,10 +414,10 @@ npm run dev
 ### 2. Test Results (все тесты PASS)
 
 #### 2.1. Test Results — GET All Restaurants
-![Test Results GET All](screenshots/vartest1.png)
+![Test Results GET All](screenshots/vartest1.PNG)
 
 #### 2.2. Test Results — POST Create Restaurant
-![Test Results POST](screenshots/varpost2.png)
+![Test Results POST](screenshots/varpost2.PNG)
 
 #### 2.3. Test Results — GET Nonexistent (404)
 ![Test Results 404](screenshots/varerpost2.jpg)
