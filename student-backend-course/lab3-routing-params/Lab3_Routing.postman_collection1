@@ -1,0 +1,618 @@
+{
+  "info": {
+    "_postman_id": "228a802d-adcc-4a48-8d3a-179caa726034",
+    "name": "Lab3_Routing",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58132601",
+    "_collection_link": "https://go.postman.co/collection/58132601-228a802d-adcc-4a48-8d3a-179caa726034?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Restaurants",
+      "item": [
+        {
+          "name": "GET All Restaurants",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/restaurants",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "restaurants"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Restaurant by ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Статус 200 OK\", () => pm.response.to.have.status(200));\r",
+                  "pm.test(\"Есть id\", () => {\r",
+                  "  pm.expect(pm.response.json()).to.have.property('id');\r",
+                  "});\r",
+                  "pm.test(\"id = 1\", () => {\r",
+                  "  pm.expect(pm.response.json().id).to.eql(1);\r",
+                  "});\r",
+                  "pm.test(\"Есть name\", () => {\r",
+                  "  pm.expect(pm.response.json()).to.have.property('name');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/restaurants/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "restaurants",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Restaurant Dishes",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Статус 200 OK\", () => pm.response.to.have.status(200));\r",
+                  "pm.test(\"Есть массив dishes\", () => {\r",
+                  "  pm.expect(pm.response.json().dishes).to.be.an('array');\r",
+                  "});\r",
+                  "pm.test(\"Есть restaurantId = 1\", () => {\r",
+                  "  pm.expect(pm.response.json().restaurantId).to.eql(1);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/restaurants/1/dishes",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "restaurants",
+                "1",
+                "dishes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Cuisine Restaurants",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Статус 200 OK\", () => pm.response.to.have.status(200));\r",
+                  "pm.test(\"Кухня = Итальянская\", () => {\r",
+                  "  pm.expect(pm.response.json().cuisine).to.eql('Итальянская');\r",
+                  "});\r",
+                  "pm.test(\"Все результаты итальянские\", () => {\r",
+                  "  const data = pm.response.json();\r",
+                  "  data.restaurants.forEach(r => {\r",
+                  "    pm.expect(r.cuisine).to.eql('Итальянская');\r",
+                  "  });\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/cuisines/Итальянская/restaurants",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "cuisines",
+                "Итальянская",
+                "restaurants"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Query",
+      "item": [
+        {
+          "name": "GET Search",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Статус 200 OK\", () => pm.response.to.have.status(200));\r",
+                  "pm.test(\"Все результаты содержат 'Пуш'\", () => {\r",
+                  "  const data = pm.response.json();\r",
+                  "  data.items.forEach(r => {\r",
+                  "    pm.expect(r.name.toLowerCase()).to.include('пуш');\r",
+                  "  });\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/restaurants?search=Пуш",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "restaurants"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "Пуш"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Sort",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Статус 200 OK\", () => pm.response.to.have.status(200));\r",
+                  "pm.test(\"Отсортировано по убыванию rating\", () => {\r",
+                  "  const data = pm.response.json();\r",
+                  "  const ratings = data.items.map(r => r.rating);\r",
+                  "  for (let i = 1; i < ratings.length; i++) {\r",
+                  "    pm.expect(ratings[i]).to.be.at.most(ratings[i - 1]);\r",
+                  "  }\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/restaurants?sort=rating&order=desc",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "restaurants"
+              ],
+              "query": [
+                {
+                  "key": "sort",
+                  "value": "rating"
+                },
+                {
+                  "key": "order",
+                  "value": "desc"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Pagination",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Статус 200 OK\", () => pm.response.to.have.status(200));\r",
+                  "pm.test(\"Вернулось 2 элемента\", () => {\r",
+                  "  pm.expect(pm.response.json().items.length).to.eql(2);\r",
+                  "});\r",
+                  "pm.test(\"page = 1, limit = 2\", () => {\r",
+                  "  const data = pm.response.json();\r",
+                  "  pm.expect(data.page).to.eql(1);\r",
+                  "  pm.expect(data.limit).to.eql(2);\r",
+                  "});\r",
+                  "pm.test(\"Есть totalPages\", () => {\r",
+                  "  pm.expect(pm.response.json()).to.have.property('totalPages');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/restaurants?page=1&limit=2",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "restaurants"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Filter by Cuisine",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Статус 200 OK\", () => pm.response.to.have.status(200));\r",
+                  "pm.test(\"Все результаты итальянские\", () => {\r",
+                  "  const data = pm.response.json();\r",
+                  "  data.items.forEach(r => {\r",
+                  "    pm.expect(r.cuisine).to.eql('Итальянская');\r",
+                  "  });\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/restaurants?filter=cuisine:Итальянская",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "restaurants"
+              ],
+              "query": [
+                {
+                  "key": "filter",
+                  "value": "cuisine:Итальянская"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Filter by Rating",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Статус 200 OK\", () => pm.response.to.have.status(200));\r",
+                  "pm.test(\"Все рейтинги = 4.5\", () => {\r",
+                  "  const data = pm.response.json();\r",
+                  "  data.items.forEach(r => {\r",
+                  "    pm.expect(r.rating).to.eql(4.5);\r",
+                  "  });\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/restaurants?filter=rating:4.5",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "restaurants"
+              ],
+              "query": [
+                {
+                  "key": "filter",
+                  "value": "rating:4.5"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Errors",
+      "item": [
+        {
+          "name": "GET Restaurant 404",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Статус 404\", () => pm.response.to.have.status(404));\r",
+                  "pm.test(\"Есть поле error\", () => {\r",
+                  "  pm.expect(pm.response.json()).to.have.property('error');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/restaurants/999",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "restaurants",
+                "999"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Restaurant 400",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Статус 400\", () => pm.response.to.have.status(400));\r",
+                  "pm.test(\"Есть поле error\", () => {\r",
+                  "  pm.expect(pm.response.json()).to.have.property('error');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/restaurants/abc",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "restaurants",
+                "abc"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Invalid Sort",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Статус 400\", () => pm.response.to.have.status(400));\r",
+                  "pm.test(\"Ошибка про sort\", () => {\r",
+                  "  pm.expect(pm.response.json().error).to.include('сортировки');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/restaurants?sort=address&order=asc",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "restaurants"
+              ],
+              "query": [
+                {
+                  "key": "sort",
+                  "value": "address"
+                },
+                {
+                  "key": "order",
+                  "value": "asc"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Invalid Order",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Статус 400\", () => pm.response.to.have.status(400));\r",
+                  "pm.test(\"Ошибка про order\", () => {\r",
+                  "  pm.expect(pm.response.json().error).to.include('order');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/restaurants?sort=rating&order=up",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "restaurants"
+              ],
+              "query": [
+                {
+                  "key": "sort",
+                  "value": "rating"
+                },
+                {
+                  "key": "order",
+                  "value": "up"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Invalid Page",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Статус 400\", () => pm.response.to.have.status(400));\r",
+                  "pm.test(\"Ошибка про page\", () => {\r",
+                  "  pm.expect(pm.response.json().error).to.include('page');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/restaurants?page=0",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "restaurants"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Invalid Limit",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Статус 400\", () => pm.response.to.have.status(400));\r",
+                  "pm.test(\"Ошибка про limit\", () => {\r",
+                  "  pm.expect(pm.response.json().error).to.include('limit');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/restaurants?limit=200",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "restaurants"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "200"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
