@@ -1,48 +1,31 @@
 {
   "info": {
-    "_postman_id": "228a802d-adcc-4a48-8d3a-179caa726034",
+    "_postman_id": "f97b500a-482d-40a0-8fb6-f9518f8239a7",
     "name": "Lab3_Routing",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "58132601",
-    "_collection_link": "https://go.postman.co/collection/58132601-228a802d-adcc-4a48-8d3a-179caa726034?source=collection_link"
+    "_collection_link": "https://go.postman.co/collection/58132601-f97b500a-482d-40a0-8fb6-f9518f8239a7?source=collection_link"
   },
   "item": [
     {
-      "name": "Restaurants",
+      "name": "Cities",
       "item": [
         {
-          "name": "GET All Restaurants",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{base_url}}/restaurants",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "restaurants"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "GET Restaurant by ID",
+          "name": "GET All Cities",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
                   "pm.test(\"Статус 200 OK\", () => pm.response.to.have.status(200));\r",
-                  "pm.test(\"Есть id\", () => {\r",
-                  "  pm.expect(pm.response.json()).to.have.property('id');\r",
+                  "pm.test(\"Ответ в JSON\", () => pm.response.to.be.json);\r",
+                  "pm.test(\"Есть поле count\", () => {\r",
+                  "  const data = pm.response.json();\r",
+                  "  pm.expect(data).to.have.property('count');\r",
                   "});\r",
-                  "pm.test(\"id = 1\", () => {\r",
-                  "  pm.expect(pm.response.json().id).to.eql(1);\r",
-                  "});\r",
-                  "pm.test(\"Есть name\", () => {\r",
-                  "  pm.expect(pm.response.json()).to.have.property('name');\r",
+                  "pm.test(\"cities — массив\", () => {\r",
+                  "  const data = pm.response.json();\r",
+                  "  pm.expect(data.cities).to.be.an('array');\r",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -55,12 +38,90 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/restaurants/1",
+              "raw": "{{base_url}}/cities",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
-                "restaurants",
+                "cities"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET City Area",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Статус 200 OK\", () => pm.response.to.have.status(200));\r",
+                  "pm.test(\"Есть поле area\", () => {\r",
+                  "  const data = pm.response.json();\r",
+                  "  pm.expect(data).to.have.property('area');\r",
+                  "});\r",
+                  "pm.test(\"Единица измерения км²\", () => {\r",
+                  "  const data = pm.response.json();\r",
+                  "  pm.expect(data.unit).to.eql('км²');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/cities/1/area",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "cities",
+                "1",
+                "area"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET City by ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Статус 200 OK\", () => pm.response.to.have.status(200));\r",
+                  "pm.test(\"Есть поле id\", () => {\r",
+                  "  const data = pm.response.json();\r",
+                  "  pm.expect(data).to.have.property('id');\r",
+                  "});\r",
+                  "pm.test(\"id = 1\", () => {\r",
+                  "  const data = pm.response.json();\r",
+                  "  pm.expect(data.id).to.eql(1);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/cities/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "cities",
                 "1"
               ]
             }
@@ -68,18 +129,17 @@
           "response": []
         },
         {
-          "name": "GET Restaurant Dishes",
+          "name": "GET City Details",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
                   "pm.test(\"Статус 200 OK\", () => pm.response.to.have.status(200));\r",
-                  "pm.test(\"Есть массив dishes\", () => {\r",
-                  "  pm.expect(pm.response.json().dishes).to.be.an('array');\r",
-                  "});\r",
-                  "pm.test(\"Есть restaurantId = 1\", () => {\r",
-                  "  pm.expect(pm.response.json().restaurantId).to.eql(1);\r",
+                  "pm.test(\"Есть вложенный массив districts\", () => {\r",
+                  "  const data = pm.response.json();\r",
+                  "  pm.expect(data).to.have.property('districts');\r",
+                  "  pm.expect(data.districts).to.be.an('array');\r",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -92,65 +152,19 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/restaurants/1/dishes",
+              "raw": "{{base_url}}/cities/1/details",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
-                "restaurants",
+                "cities",
                 "1",
-                "dishes"
+                "details"
               ]
             }
           },
           "response": []
         },
-        {
-          "name": "GET Cuisine Restaurants",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Статус 200 OK\", () => pm.response.to.have.status(200));\r",
-                  "pm.test(\"Кухня = Итальянская\", () => {\r",
-                  "  pm.expect(pm.response.json().cuisine).to.eql('Итальянская');\r",
-                  "});\r",
-                  "pm.test(\"Все результаты итальянские\", () => {\r",
-                  "  const data = pm.response.json();\r",
-                  "  data.restaurants.forEach(r => {\r",
-                  "    pm.expect(r.cuisine).to.eql('Итальянская');\r",
-                  "  });\r",
-                  "});"
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{base_url}}/cuisines/Итальянская/restaurants",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "cuisines",
-                "Итальянская",
-                "restaurants"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Query",
-      "item": [
         {
           "name": "GET Search",
           "event": [
@@ -159,11 +173,10 @@
               "script": {
                 "exec": [
                   "pm.test(\"Статус 200 OK\", () => pm.response.to.have.status(200));\r",
-                  "pm.test(\"Все результаты содержат 'Пуш'\", () => {\r",
+                  "pm.test(\"Результат содержит 'Москва'\", () => {\r",
                   "  const data = pm.response.json();\r",
-                  "  data.items.forEach(r => {\r",
-                  "    pm.expect(r.name.toLowerCase()).to.include('пуш');\r",
-                  "  });\r",
+                  "  pm.expect(data.cities.length).to.be.above(0);\r",
+                  "  pm.expect(data.cities[0].name).to.include('Москва');\r",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -176,17 +189,17 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/restaurants?search=Пуш",
+              "raw": "{{base_url}}/cities?search=Москва",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
-                "restaurants"
+                "cities"
               ],
               "query": [
                 {
                   "key": "search",
-                  "value": "Пуш"
+                  "value": "Москва"
                 }
               ]
             }
@@ -201,11 +214,11 @@
               "script": {
                 "exec": [
                   "pm.test(\"Статус 200 OK\", () => pm.response.to.have.status(200));\r",
-                  "pm.test(\"Отсортировано по убыванию rating\", () => {\r",
+                  "pm.test(\"Отсортировано по убыванию population\", () => {\r",
                   "  const data = pm.response.json();\r",
-                  "  const ratings = data.items.map(r => r.rating);\r",
-                  "  for (let i = 1; i < ratings.length; i++) {\r",
-                  "    pm.expect(ratings[i]).to.be.at.most(ratings[i - 1]);\r",
+                  "  const populations = data.cities.map(c => c.population);\r",
+                  "  for (let i = 1; i < populations.length; i++) {\r",
+                  "    pm.expect(populations[i]).to.be.at.most(populations[i - 1]);\r",
                   "  }\r",
                   "});"
                 ],
@@ -219,17 +232,17 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/restaurants?sort=rating&order=desc",
+              "raw": "{{base_url}}/cities?sort=population&order=desc",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
-                "restaurants"
+                "cities"
               ],
               "query": [
                 {
                   "key": "sort",
-                  "value": "rating"
+                  "value": "population"
                 },
                 {
                   "key": "order",
@@ -249,15 +262,13 @@
                 "exec": [
                   "pm.test(\"Статус 200 OK\", () => pm.response.to.have.status(200));\r",
                   "pm.test(\"Вернулось 2 элемента\", () => {\r",
-                  "  pm.expect(pm.response.json().items.length).to.eql(2);\r",
+                  "  const data = pm.response.json();\r",
+                  "  pm.expect(data.cities.length).to.eql(2);\r",
                   "});\r",
                   "pm.test(\"page = 1, limit = 2\", () => {\r",
                   "  const data = pm.response.json();\r",
                   "  pm.expect(data.page).to.eql(1);\r",
                   "  pm.expect(data.limit).to.eql(2);\r",
-                  "});\r",
-                  "pm.test(\"Есть totalPages\", () => {\r",
-                  "  pm.expect(pm.response.json()).to.have.property('totalPages');\r",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -270,12 +281,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/restaurants?page=1&limit=2",
+              "raw": "{{base_url}}/cities?page=1&limit=2",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
-                "restaurants"
+                "cities"
               ],
               "query": [
                 {
@@ -290,20 +301,23 @@
             }
           },
           "response": []
-        },
+        }
+      ]
+    },
+    {
+      "name": "Countries",
+      "item": [
         {
-          "name": "GET Filter by Cuisine",
+          "name": "GET Cities by Country",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
                   "pm.test(\"Статус 200 OK\", () => pm.response.to.have.status(200));\r",
-                  "pm.test(\"Все результаты итальянские\", () => {\r",
+                  "pm.test(\"Страна — Россия\", () => {\r",
                   "  const data = pm.response.json();\r",
-                  "  data.items.forEach(r => {\r",
-                  "    pm.expect(r.cuisine).to.eql('Итальянская');\r",
-                  "  });\r",
+                  "  pm.expect(data.country).to.eql('Россия');\r",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -316,36 +330,30 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/restaurants?filter=cuisine:Итальянская",
+              "raw": "{{base_url}}/countries/Россия/cities",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
-                "restaurants"
-              ],
-              "query": [
-                {
-                  "key": "filter",
-                  "value": "cuisine:Итальянская"
-                }
+                "countries",
+                "Россия",
+                "cities"
               ]
             }
           },
           "response": []
         },
         {
-          "name": "GET Filter by Rating",
+          "name": "GET City in Country",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
                   "pm.test(\"Статус 200 OK\", () => pm.response.to.have.status(200));\r",
-                  "pm.test(\"Все рейтинги = 4.5\", () => {\r",
+                  "pm.test(\"Содержит вложенный объект city\", () => {\r",
                   "  const data = pm.response.json();\r",
-                  "  data.items.forEach(r => {\r",
-                  "    pm.expect(r.rating).to.eql(4.5);\r",
-                  "  });\r",
+                  "  pm.expect(data).to.have.property('city');\r",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -358,18 +366,15 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/restaurants?filter=rating:4.5",
+              "raw": "{{base_url}}/countries/Россия/cities/1",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
-                "restaurants"
-              ],
-              "query": [
-                {
-                  "key": "filter",
-                  "value": "rating:4.5"
-                }
+                "countries",
+                "Россия",
+                "cities",
+                "1"
               ]
             }
           },
@@ -381,15 +386,16 @@
       "name": "Errors",
       "item": [
         {
-          "name": "GET Restaurant 404",
+          "name": "GET City 404",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Статус 404\", () => pm.response.to.have.status(404));\r",
+                  "pm.test(\"Статус 404 Not Found\", () => pm.response.to.have.status(404));\r",
                   "pm.test(\"Есть поле error\", () => {\r",
-                  "  pm.expect(pm.response.json()).to.have.property('error');\r",
+                  "  const data = pm.response.json();\r",
+                  "  pm.expect(data).to.have.property('error');\r",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -402,12 +408,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/restaurants/999",
+              "raw": "{{base_url}}/cities/999",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
-                "restaurants",
+                "cities",
                 "999"
               ]
             }
@@ -415,15 +421,16 @@
           "response": []
         },
         {
-          "name": "GET Restaurant 400",
+          "name": "GET City 400",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Статус 400\", () => pm.response.to.have.status(400));\r",
+                  "pm.test(\"Статус 400 Bad Request\", () => pm.response.to.have.status(400));\r",
                   "pm.test(\"Есть поле error\", () => {\r",
-                  "  pm.expect(pm.response.json()).to.have.property('error');\r",
+                  "  const data = pm.response.json();\r",
+                  "  pm.expect(data).to.have.property('error');\r",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -436,12 +443,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/restaurants/abc",
+              "raw": "{{base_url}}/cities/abc",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
-                "restaurants",
+                "cities",
                 "abc"
               ]
             }
@@ -449,15 +456,16 @@
           "response": []
         },
         {
-          "name": "GET Invalid Sort",
+          "name": "GET Wildcard 404",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Статус 400\", () => pm.response.to.have.status(400));\r",
-                  "pm.test(\"Ошибка про sort\", () => {\r",
-                  "  pm.expect(pm.response.json().error).to.include('сортировки');\r",
+                  "pm.test(\"Статус 404 Not Found\", () => pm.response.to.have.status(404));\r",
+                  "pm.test(\"Ошибка 'Маршрут не найден'\", () => {\r",
+                  "  const data = pm.response.json();\r",
+                  "  pm.expect(data.error).to.eql('Маршрут не найден');\r",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -470,143 +478,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/restaurants?sort=address&order=asc",
+              "raw": "{{base_url}}/anything-else",
               "host": [
                 "{{base_url}}"
               ],
               "path": [
-                "restaurants"
-              ],
-              "query": [
-                {
-                  "key": "sort",
-                  "value": "address"
-                },
-                {
-                  "key": "order",
-                  "value": "asc"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "GET Invalid Order",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Статус 400\", () => pm.response.to.have.status(400));\r",
-                  "pm.test(\"Ошибка про order\", () => {\r",
-                  "  pm.expect(pm.response.json().error).to.include('order');\r",
-                  "});"
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{base_url}}/restaurants?sort=rating&order=up",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "restaurants"
-              ],
-              "query": [
-                {
-                  "key": "sort",
-                  "value": "rating"
-                },
-                {
-                  "key": "order",
-                  "value": "up"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "GET Invalid Page",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Статус 400\", () => pm.response.to.have.status(400));\r",
-                  "pm.test(\"Ошибка про page\", () => {\r",
-                  "  pm.expect(pm.response.json().error).to.include('page');\r",
-                  "});"
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{base_url}}/restaurants?page=0",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "restaurants"
-              ],
-              "query": [
-                {
-                  "key": "page",
-                  "value": "0"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "GET Invalid Limit",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Статус 400\", () => pm.response.to.have.status(400));\r",
-                  "pm.test(\"Ошибка про limit\", () => {\r",
-                  "  pm.expect(pm.response.json().error).to.include('limit');\r",
-                  "});"
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{base_url}}/restaurants?limit=200",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "restaurants"
-              ],
-              "query": [
-                {
-                  "key": "limit",
-                  "value": "200"
-                }
+                "anything-else"
               ]
             }
           },
