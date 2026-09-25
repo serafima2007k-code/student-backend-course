@@ -21,7 +21,7 @@
 
 ## Теоретическое обоснование
 
-**Маршрутизация (routing)** — механизм сопоставления HTTP-запроса (метод + URL) с кодом-обработчиком на сервере. В Express маршрут описывается как `app.METHOD(PATH, HANDLER)`, где `METHOD` — HTTP-метод, `PATH` — путь URL, `HANDLER` — функция-обработчик, принимающая `req` и `res`.
+**Маршрутизация (routing)** - механизм сопоставления HTTP-запроса (метод + URL) с кодом-обработчиком на сервере. В Express маршрут описывается как `app.METHOD(PATH, HANDLER)`, где `METHOD` - HTTP-метод, `PATH` - путь URL, `HANDLER` - функция-обработчик, принимающая `req` и `res`.
 
 **Три источника данных в запросе:**
 | Источник | Где находится | Express |
@@ -30,15 +30,15 @@
 | Query-параметры | После `?`: `/users?age=20` | `req.query.age` |
 | Тело запроса | Тело POST/PUT/PATCH | `req.body` |
 
-**Параметры пути** — именованная часть URL, извлекается сервером и передаётся в обработчик. В Express параметр всегда строка (нужен `parseInt`).
+**Параметры пути** - именованная часть URL, извлекается сервером и передаётся в обработчик. В Express параметр всегда строка (нужен `parseInt`).
 
-**Query-параметры** — пары «ключ=значение» после `?`. Используются для фильтрации, сортировки, пагинации, поиска. Всегда строки.
+**Query-параметры** - пары «ключ=значение» после `?`. Используются для фильтрации, сортировки, пагинации, поиска. Всегда строки.
 
-**Вложенные маршруты** отражают иерархию ресурсов: `/restaurants/1/dishes` — блюда ресторана 1.
+**Вложенные маршруты** отражают иерархию ресурсов: `/restaurants/1/dishes` - блюда ресторана 1.
 
-**Wildcard-маршрут** (`app.use` без пути) — соответствует любому пути, используется для 404. Должен идти **последним**.
+**Wildcard-маршрут** (`app.use` без пути) - соответствует любому пути, используется для 404. Должен идти **последним**.
 
-**Валидация параметров** — обязательна, так как параметры приходят строками. Проверяем `isNaN(id)` → 400; не найден → 404.
+**Валидация параметров** - обязательна, так как параметры приходят строками. Проверяем `isNaN(id)` → 400; не найден → 404.
 
 ---
 
@@ -254,7 +254,7 @@ npm run dev-example
 
 Скриншоты всех запросов из Postman с ответами
 
-**GET /cities — все города**  
+**GET /cities - все города**  
 ![GET all](screenshots/example-cities-all.jpg)
 
 **GET /cities/1**  
@@ -285,7 +285,7 @@ npm run dev-example
 
 ## Выполнение индивидуального задания
 
-**Вариант 14** — Рестораны (restaurants).  
+**Вариант 14** - Рестораны (restaurants).  
 **Поля:** id, name, cuisine, address, rating  
 **Вложенный ресурс:** `/restaurants/:id/dishes`  
 **Категория:** `/cuisines/:cuisine/restaurants`
@@ -322,7 +322,7 @@ const dishes = {
 };
 
 // ====================================================
-// GET /restaurants — все + search + filter + sort + pagination
+// GET /restaurants - все + search + filter + sort + pagination
 // ====================================================
 app.get('/restaurants', (req, res) => {
   let result = [...restaurants];
@@ -375,7 +375,7 @@ app.get('/restaurants', (req, res) => {
     });
   }
 
-  // 4. ПАГИНАЦИЯ (page=1&limit=10) — ИСПРАВЛЕНО
+  // 4. ПАГИНАЦИЯ (page=1&limit=10) - ИСПРАВЛЕНО
   let page = 1;
   let limit = 10;
 
@@ -408,7 +408,7 @@ app.get('/restaurants', (req, res) => {
   });
 });
 
-// GET /restaurants/:id — один ресторан
+// GET /restaurants/:id - один ресторан
 app.get('/restaurants/:id', (req, res) => {
   const id = parseInt(req.params.id);
   if (isNaN(id) || id < 1) {
@@ -421,7 +421,7 @@ app.get('/restaurants/:id', (req, res) => {
   res.json(restaurant);
 });
 
-// GET /restaurants/:id/dishes — вложенный ресурс
+// GET /restaurants/:id/dishes - вложенный ресурс
 app.get('/restaurants/:id/dishes', (req, res) => {
   const id = parseInt(req.params.id);
   if (isNaN(id) || id < 1) {
@@ -440,7 +440,7 @@ app.get('/restaurants/:id/dishes', (req, res) => {
   });
 });
 
-// GET /cuisines/:cuisine/restaurants — элементы категории
+// GET /cuisines/:cuisine/restaurants - элементы категории
 app.get('/cuisines/:cuisine/restaurants', (req, res) => {
   const cuisine = req.params.cuisine;
   const filtered = restaurants.filter(r =>
@@ -472,49 +472,49 @@ npm run dev
 
 ### Скриншоты индивидуального задания
 
-#### 1. GET /restaurants — все рестораны
+#### 1. GET /restaurants - все рестораны
 ![All](screenshots/restaurants-all.jpg)
 
-#### 2. GET /restaurants/1 — один ресторан
+#### 2. GET /restaurants/1 - один ресторан
 ![One](screenshots/restaurants-by-id.jpg)
 
-#### 3. GET /restaurants/999 — 404
+#### 3. GET /restaurants/999 - 404
 ![404](screenshots/restaurants-404.jpg)
 
-#### 4. GET /restaurants/abc — 400
+#### 4. GET /restaurants/abc - 400
 ![400](screenshots/restaurants-400.jpg)
 
-#### 5. GET /restaurants/1/dishes — вложенный ресурс
+#### 5. GET /restaurants/1/dishes - вложенный ресурс
 ![Dishes](screenshots/restaurants-dishes.jpg)
 
-#### 6. GET /cuisines/Итальянская/restaurants — рестораны по кухне
+#### 6. GET /cuisines/Итальянская/restaurants - рестораны по кухне
 ![Cuisine](screenshots/cuisine-restaurants.jpg)
 
-#### 7. GET /restaurants?search=пуш — поиск
+#### 7. GET /restaurants?search=пуш - поиск
 ![Search](screenshots/search.jpg)
 
-#### 8. GET /restaurants?sort=rating&order=desc — сортировка
+#### 8. GET /restaurants?sort=rating&order=desc - сортировка
 ![Sort](screenshots/sort.jpg)
 
-#### 9. GET /restaurants?page=1&limit=2 — пагинация
+#### 9. GET /restaurants?page=1&limit=2 - пагинация
 ![Pagination](screenshots/pagination.jpg)
 
-#### 10. GET /restaurants?filter=cuisine:Итальянская — фильтрация по кухне
+#### 10. GET /restaurants?filter=cuisine:Итальянская - фильтрация по кухне
 ![Filter Cuisine](screenshots/filter-cuisine.jpg)
 
-#### 11. GET /restaurants?filter=rating:4.5 — фильтрация по рейтингу
+#### 11. GET /restaurants?filter=rating:4.5 - фильтрация по рейтингу
 ![Filter Rating](screenshots/filter-rating.jpg)
 
-#### 12. GET /restaurants?sort=address&order=asc — 400 (sort не из белого списка)
+#### 12. GET /restaurants?sort=address&order=asc - 400 (sort не из белого списка)
 ![Invalid Sort](screenshots/invalid-sort.jpg)
 
-#### 13. GET /restaurants?sort=rating&order=up — 400 (order не asc/desc)
+#### 13. GET /restaurants?sort=rating&order=up - 400 (order не asc/desc)
 ![Invalid Order](screenshots/invalid-order.jpg)
 
-#### 14. GET /restaurants?page=0 — 400 (page < 1)
+#### 14. GET /restaurants?page=0 - 400 (page < 1)
 ![Invalid Page](screenshots/invalid-page.jpg)
 
-#### 15. GET /restaurants?limit=200 — 400 (limit > 100)
+#### 15. GET /restaurants?limit=200 - 400 (limit > 100)
 ![Invalid Limit](screenshots/invalid-limit.jpg)
 
 ---
@@ -523,7 +523,7 @@ npm run dev
 
 ### 20. Как комбинировать параметры пути и query-параметры в одном запросе?
 
-Параметры пути (`req.params`) и query-параметры (`req.query`) **можно использовать одновременно**. Параметры пути — часть URL до `?`, query — после `?`.
+Параметры пути (`req.params`) и query-параметры (`req.query`) **можно использовать одновременно**. Параметры пути - часть URL до `?`, query - после `?`.
 
 **Пример:**
 ```javascript
@@ -550,16 +550,16 @@ app.get('/cuisines/:cuisine/restaurants/:restaurantId/dishes/:dishId', (req, res
 
 ### 22. Как обработать wildcard-маршрут и почему он должен быть последним?
 
-Wildcard — это `app.use((req, res) => {...})` **без указания пути**. Он срабатывает для всех запросов, которые не подошли ни под один маршрут.
+Wildcard - это `app.use((req, res) => {...})` **без указания пути**. Он срабатывает для всех запросов, которые не подошли ни под один маршрут.
 
-**Почему последний:** Express проверяет маршруты **в порядке объявления**. Если поставить wildcard первым — он перехватит все запросы, и остальные маршруты не сработают.
+**Почему последний:** Express проверяет маршруты **в порядке объявления**. Если поставить wildcard первым - он перехватит все запросы, и остальные маршруты не сработают.
 
 ```javascript
 // Все маршруты выше
 app.get('/restaurants', ...);
 app.get('/restaurants/:id', ...);
 
-// Wildcard — последний!
+// Wildcard - последний!
 app.use((req, res) => {
   res.status(404).json({ error: 'Маршрут не найден' });
 });
@@ -583,12 +583,12 @@ app.use((err, req, res, next) => {
 ```javascript
 app.use((req, res, next) => {
   const ip = req.ip || req.socket.remoteAddress;
-  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url} — IP: ${ip}`);
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url} - IP: ${ip}`);
   next();
 });
 ```
 
-`req.ip` содержит IP клиента (если включён `trust proxy` — с учётом прокси).
+`req.ip` содержит IP клиента (если включён `trust proxy` - с учётом прокси).
 
 ### 25. Как защитить API от слишком больших значений limit?
 
@@ -601,7 +601,7 @@ if (limit < 1 || limit > 100) {
 }
 ```
 
-Это защищает от запросов с `limit=999999` — иначе сервер вернёт огромный массив.
+Это защищает от запросов с `limit=999999` - иначе сервер вернёт огромный массив.
 
 ### 26. Как реализовать статистику по коллекции?
 
@@ -679,12 +679,12 @@ pm.test("Ответ содержит id", function () {
 5. Экспортировать коллекцию в `.json`.
 
 ## Вывод
-В ходе работы я освоил маршрутизацию в Express: параметры пути (`req.params`), query-параметры (`req.query`), вложенные маршруты, wildcard-маршрут и валидацию. Реализовал API для ресторанов: список с поиском/сортировкой/пагинацией, получение по ID, вложенный ресурс (блюда), фильтрацию по кухне, статистику, глобальный обработчик ошибок 500 и логирование с IP-адресом. Научился различать `req.params`, `req.query` и `req.body`. Трудности возникли с порядком маршрутов — маршрут `/restaurants/stats` пришлось поставить **до** `/restaurants/:id`, иначе Express принимал `stats` за ID. Полученные навыки — база для проектирования REST API.
+В ходе работы я освоил маршрутизацию в Express: параметры пути (`req.params`), query-параметры (`req.query`), вложенные маршруты, wildcard-маршрут и валидацию. Реализовал API для ресторанов: список с поиском/сортировкой/пагинацией, получение по ID, вложенный ресурс (блюда), фильтрацию по кухне, статистику, глобальный обработчик ошибок 500 и логирование с IP-адресом. Научился различать `req.params`, `req.query` и `req.body`. Трудности возникли с порядком маршрутов - маршрут `/restaurants/stats` пришлось поставить **до** `/restaurants/:id`, иначе Express принимал `stats` за ID. Полученные навыки - база для проектирования REST API.
 
 ## Список использованных источников
-1. [Express — Routing](https://expressjs.com/en/guide/routing.html)
-2. [Express — Request](https://expressjs.com/en/4x/api.html#req)
-3. [Flask — Routing](https://flask.palletsprojects.com/en/latest/quickstart/#routing)
+1. [Express - Routing](https://expressjs.com/en/guide/routing.html)
+2. [Express - Request](https://expressjs.com/en/4x/api.html#req)
+3. [Flask - Routing](https://flask.palletsprojects.com/en/latest/quickstart/#routing)
 4. [HTTP-методы (MDN)](https://developer.mozilla.org/ru/docs/Web/HTTP/Methods)
 5. [URL-параметры (MDN)](https://developer.mozilla.org/ru/docs/Learn/Common_questions/What_is_a_URL)
 6. [REST API Tutorial](https://restfulapi.net/)

@@ -24,18 +24,18 @@ POST, PUT, DELETE) в Express/Flask. Научиться реализовыват
 
 ## Теоретическое обоснование
 
-**CRUD** — акроним, обозначающий четыре базовые операции над данными:
+**CRUD** - акроним, обозначающий четыре базовые операции над данными:
 - **Create** → POST
-- **Read** → GET
+- **Read** → GET 
 - **Update** → PUT / PATCH
 - **Delete** → DELETE
 
 **HTTP-методы:**
-- **GET** — получение данных, идемпотентный, безопасный. Коды: 200, 404.
-- **POST** — создание ресурса, не идемпотентный. Коды: 201, 400.
-- **PUT** — полное обновление ресурса, идемпотентный. Коды: 200, 404.
-- **PATCH** — частичное обновление. Коды: 200, 404.
-- **DELETE** — удаление ресурса, идемпотентный. Коды: 200, 204, 404.
+- **GET** -  получение данных, идемпотентный, безопасный. Коды: 200, 404.
+- **POST** - создание ресурса, не идемпотентный. Коды: 201, 400.
+- **PUT** - полное обновление ресурса, идемпотентный. Коды: 200, 404.
+- **PATCH** - частичное обновление. Коды: 200, 404.
+- **DELETE** - удаление ресурса, идемпотентный. Коды: 200, 204, 404.
 
 **Коды состояния:**
 | Код | Название | Когда используется |
@@ -47,7 +47,7 @@ POST, PUT, DELETE) в Express/Flask. Научиться реализовыват
 | 404 | Not Found | Ресурс не найден |
 | 500 | Internal Server Error | Ошибка на сервере |
 
-**Хранение данных** — в массиве в оперативной памяти. Данные теряются при перезапуске сервера.
+**Хранение данных** - в массиве в оперативной памяти. Данные теряются при перезапуске сервера.
 
 ---
 
@@ -72,12 +72,12 @@ let items = [
 
 let nextId = 4;
 
-// GET /items — все товары
+// GET /items - все товары
 app.get('/items', (req, res) => {
   res.json({ count: items.length, items });
 });
 
-// GET /items/:id — товар по ID
+// GET /items/:id - товар по ID
 app.get('/items/:id', (req, res) => {
   const id = parseInt(req.params.id);
   const item = items.find(i => i.id === id);
@@ -87,7 +87,7 @@ app.get('/items/:id', (req, res) => {
   res.json(item);
 });
 
-// POST /items — создание товара С ПРОВЕРКОЙ
+// POST /items - создание товара С ПРОВЕРКОЙ
 app.post('/items', (req, res) => {
   // ПРОВЕРКА обязательных полей
   if (!req.body || !req.body.name || !req.body.price) {
@@ -106,7 +106,7 @@ app.post('/items', (req, res) => {
   res.status(201).json(newItem);
 });
 
-// PUT /items/:id — обновление
+// PUT /items/:id - обновление
 app.put('/items/:id', (req, res) => {
   const id = parseInt(req.params.id);
   const item = items.find(i => i.id === id);
@@ -117,7 +117,7 @@ app.put('/items/:id', (req, res) => {
   res.json(item);
 });
 
-// DELETE /items/:id — удаление
+// DELETE /items/:id - удаление
 app.delete('/items/:id', (req, res) => {
   const id = parseInt(req.params.id);
   const index = items.findIndex(i => i.id === id);
@@ -198,7 +198,7 @@ npm run dev-example
 
 ## Выполнение индивидуального задания
 
-**Вариант 14** — Рестораны (restaurants).  
+**Вариант 14** - Рестораны (restaurants).  
 **Поля:** id, name, cuisine, address, rating  
 **Дополнительные функции:** поиск по name, сортировка, пагинация, PATCH, массовые операции, статистика (средний рейтинг), связи по кухне, логирование в файл, глобальный обработчик ошибок.
 
@@ -241,7 +241,7 @@ let restaurants = [
 
 let nextId = 5;
 
-// GET /restaurants — список с поиском, сортировкой и пагинацией
+// GET /restaurants - список с поиском, сортировкой и пагинацией
 app.get('/restaurants', (req, res) => {
   let result = [...restaurants];
 
@@ -273,7 +273,7 @@ app.get('/restaurants', (req, res) => {
   res.json({ count: result.length, restaurants: result });
 });
 
-// GET /restaurants/:id — один ресторан
+// GET /restaurants/:id - один ресторан
 app.get('/restaurants/:id', (req, res) => {
   const id = parseInt(req.params.id);
   const restaurant = restaurants.find(r => r.id === id);
@@ -283,7 +283,7 @@ app.get('/restaurants/:id', (req, res) => {
   res.json(restaurant);
 });
 
-// POST /restaurants — создание с валидацией
+// POST /restaurants - создание с валидацией
 app.post('/restaurants', (req, res) => {
   const { name, cuisine, address, rating } = req.body;
 
@@ -313,7 +313,7 @@ app.post('/restaurants', (req, res) => {
   res.status(201).json(newRestaurant);
 });
 
-// PUT /restaurants/:id — полное обновление
+// PUT /restaurants/:id - полное обновление
 app.put('/restaurants/:id', (req, res) => {
   const id = parseInt(req.params.id);
   const index = restaurants.findIndex(r => r.id === id);
@@ -341,7 +341,7 @@ app.put('/restaurants/:id', (req, res) => {
   res.json(restaurants[index]);
 });
 
-// DELETE /restaurants/:id — удаление (204 No Content)
+// DELETE /restaurants/:id - удаление (204 No Content)
 app.delete('/restaurants/:id', (req, res) => {
   const id = parseInt(req.params.id);
   const index = restaurants.findIndex(r => r.id === id);
@@ -349,7 +349,7 @@ app.delete('/restaurants/:id', (req, res) => {
     return res.status(404).json({ error: 'Ресторан не найден' });
   }
   restaurants.splice(index, 1);
-  // 204 No Content — успешное удаление без тела ответа
+  // 204 No Content - успешное удаление без тела ответа
   res.status(204).send();
 });
 
@@ -411,16 +411,16 @@ npm run dev
 
 ### 2. Test Results (все тесты PASS)
 
-#### 2.1. Test Results — GET All Restaurants
+#### 2.1. Test Results - GET All Restaurants
 ![Test Results GET All](screenshots/vartest1.PNG)
 
-#### 2.2. Test Results — POST Create Restaurant
+#### 2.2. Test Results - POST Create Restaurant
 ![Test Results POST](screenshots/varpost2.PNG)
 
-#### 2.3. Test Results — GET Nonexistent (404)
+#### 2.3. Test Results - GET Nonexistent (404)
 ![Test Results 404](screenshots/varerpost2.jpg)
 
-#### 2.4. Test Results — POST Invalid Data (400)
+#### 2.4. Test Results - POST Invalid Data (400)
 ![Test Results 400](screenshots/varerror2.jpg)
 
 
@@ -476,14 +476,14 @@ app.use((req, res, next) => {
 ```
 
 **6. Что такое REST API и какие принципы лежат в его основе?**  
-REST (Representational State Transfer) — архитектурный стиль для API. Принципы: клиент-сервер, отсутствие состояния (stateless), кэширование, единый интерфейс, слоистая структура. Ресурсы идентифицируются URL, действия — HTTP-методами.
+REST (Representational State Transfer) - архитектурный стиль для API. Принципы: клиент-сервер, отсутствие состояния (stateless), кэширование, единый интерфейс, слоистая структура. Ресурсы идентифицируются URL, действия - HTTP-методами.
 
 **7. Как организовать структуру проекта для масштабируемого CRUD API?**  
-Разделять на слои: `routes/` (маршруты), `controllers/` (логика), `models/` (данные), `middleware/` (логирование, валидация), `config/`. Каждый ресурс — свой файл.
+Разделять на слои: `routes/` (маршруты), `controllers/` (логика), `models/` (данные), `middleware/` (логирование, валидация), `config/`. Каждый ресурс - свой файл.
 
 **8. Какие существуют стратегии генерации уникальных ID?**  
-- Счётчик (`nextId++`) — простой, но сбрасывается при перезапуске.
-- UUID (`crypto.randomUUID()`) — глобально уникальный.
+- Счётчик (`nextId++`) - простой, но сбрасывается при перезапуске.
+- UUID (`crypto.randomUUID()`) - глобально уникальный.
 - Timestamp + случайное число.
 - База данных (AUTO_INCREMENT, ObjectId в MongoDB).
 
@@ -495,7 +495,7 @@ app.use(express.json({ limit: '10kb' }));
 Плюс пагинация и лимиты на количество создаваемых элементов.
 
 **10. Как реализовать связь между сущностями (например, задачи и пользователи)?**  
-Хранить `userId` в объекте задачи, а для получения связанных — фильтровать:
+Хранить `userId` в объекте задачи, а для получения связанных - фильтровать:
 ```javascript
 app.get('/restaurants/:id/related', (req, res) => {
   const r = restaurants.find(x => x.id === parseInt(req.params.id));
