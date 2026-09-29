@@ -60,7 +60,7 @@ app.use((req, res, next) => {
     next();
 });
 
-// ============ ДАННЫЕ ============
+// ДАННЫЕ 
 let cities = [
     { id: 1, name: 'Москва', population: 13000000, country: 'Россия', area:
 2561
@@ -78,10 +78,8 @@ area: 1112
     }
 ];
 
-// ============ БАЗОВЫЙ УРОВЕНЬ ============
+// БАЗОВЫЙ УРОВЕНЬ 
 // GET /cities - все города
-
-
 // GET /cities/:id - один город
 app.get('/cities/:id', (req, res) => {
 const id = parseInt(req.params.id);
@@ -129,7 +127,7 @@ app.get('/countries/:country/cities', (req, res) => {
     });
 });
 
-// ============ СРЕДНИЙ УРОВЕНЬ ============
+// СРЕДНИЙ УРОВЕНЬ 
 // GET /cities?search=&sort=&order=&page=&limit=
 app.get('/cities', (req, res) => {
   let result = [...cities];
@@ -321,9 +319,7 @@ const dishes = {
   3: [{ id: 301, name: 'Суши', price: 900 }]
 };
 
-// ====================================================
 // GET /restaurants - все + search + filter + sort + pagination
-// ====================================================
 app.get('/restaurants', (req, res) => {
   let result = [...restaurants];
 
@@ -375,7 +371,7 @@ app.get('/restaurants', (req, res) => {
     });
   }
 
-  // 4. ПАГИНАЦИЯ (page=1&limit=10) - ИСПРАВЛЕНО
+  // 4. ПАГИНАЦИЯ (page=1&limit=10)
   let page = 1;
   let limit = 10;
 
@@ -523,7 +519,7 @@ npm run dev
 
 ### 20. Как комбинировать параметры пути и query-параметры в одном запросе?
 
-Параметры пути (`req.params`) и query-параметры (`req.query`) **можно использовать одновременно**. Параметры пути - часть URL до `?`, query - после `?`.
+Параметры пути (req.params) и query-параметры (req.query) **можно использовать одновременно**. Параметры пути - часть URL до `?`, query - после `?`.
 
 **Пример:**
 ```javascript
@@ -535,11 +531,11 @@ app.get('/restaurants/:id/dishes', (req, res) => {
 });
 ```
 
-Запрос: `GET /restaurants/1/dishes?sort=price&order=desc`
+Запрос: GET /restaurants/1/dishes?sort=price&order=desc
 
 ### 21. Как реализовать вложенные маршруты с несколькими уровнями?
 
-Указываем несколько `:параметров` в одном пути. Express передаёт их все в `req.params`.
+Указываем несколько `:параметров` в одном пути. Express передаёт их все в req.params.
 
 ```javascript
 app.get('/cuisines/:cuisine/restaurants/:restaurantId/dishes/:dishId', (req, res) => {
@@ -550,7 +546,7 @@ app.get('/cuisines/:cuisine/restaurants/:restaurantId/dishes/:dishId', (req, res
 
 ### 22. Как обработать wildcard-маршрут и почему он должен быть последним?
 
-Wildcard - это `app.use((req, res) => {...})` **без указания пути**. Он срабатывает для всех запросов, которые не подошли ни под один маршрут.
+Wildcard - это app.use((req, res) => {...}) **без указания пути**. Он срабатывает для всех запросов, которые не подошли ни под один маршрут.
 
 **Почему последний:** Express проверяет маршруты **в порядке объявления**. Если поставить wildcard первым - он перехватит все запросы, и остальные маршруты не сработают.
 
@@ -567,7 +563,7 @@ app.use((req, res) => {
 
 ### 23. Как реализовать глобальный обработчик ошибок?
 
-Middleware с **4 аргументами** (`err, req, res, next`) в самом конце файла:
+Middleware с **4 аргументами** (err, req, res, next) в самом конце файла:
 
 ```javascript
 app.use((err, req, res, next) => {
@@ -588,11 +584,11 @@ app.use((req, res, next) => {
 });
 ```
 
-`req.ip` содержит IP клиента (если включён `trust proxy` - с учётом прокси).
+req.ip содержит IP клиента (если включён trust proxy - с учётом прокси).
 
 ### 25. Как защитить API от слишком больших значений limit?
 
-Ограничить `limit` через валидацию:
+Ограничить limit через валидацию:
 
 ```javascript
 const limit = parseInt(req.query.limit) || 10;
@@ -601,7 +597,7 @@ if (limit < 1 || limit > 100) {
 }
 ```
 
-Это защищает от запросов с `limit=999999` - иначе сервер вернёт огромный массив.
+Это защищает от запросов с limit=999999 - иначе сервер вернёт огромный массив.
 
 ### 26. Как реализовать статистику по коллекции?
 
@@ -636,11 +632,11 @@ project/
 └── middleware/         # логирование, валидация
 ```
 
-В `app.js` подключать: `app.use('/restaurants', require('./routes/restaurants'))`.
+В app.js подключать: app.use('/restaurants', require('./routes/restaurants')).
 
 ### 28. Как документировать параметры маршрутов (OpenAPI/Swagger)?
 
-Установить `swagger-jsdoc` и `swagger-ui-express`, писать JSDoc-комментарии к маршрутам:
+Установить swagger-jsdoc и swagger-ui-express, писать JSDoc-комментарии к маршрутам:
 
 ```javascript
 /**
@@ -676,10 +672,10 @@ pm.test("Ответ содержит id", function () {
 });
 ```
 4. Использовать **Collection Runner** для запуска всех запросов.
-5. Экспортировать коллекцию в `.json`.
+5. Экспортировать коллекцию в .json.
 
 ## Вывод
-В ходе работы я освоил маршрутизацию в Express: параметры пути (`req.params`), query-параметры (`req.query`), вложенные маршруты, wildcard-маршрут и валидацию. Реализовал API для ресторанов: список с поиском/сортировкой/пагинацией, получение по ID, вложенный ресурс (блюда), фильтрацию по кухне, статистику, глобальный обработчик ошибок 500 и логирование с IP-адресом. Научился различать `req.params`, `req.query` и `req.body`. Трудности возникли с порядком маршрутов - маршрут `/restaurants/stats` пришлось поставить **до** `/restaurants/:id`, иначе Express принимал `stats` за ID. Полученные навыки - база для проектирования REST API.
+В ходе работы я освоил маршрутизацию в Express: параметры пути (req.params), query-параметры (req.query), вложенные маршруты, wildcard-маршрут и валидацию. Реализовал API для ресторанов: список с поиском/сортировкой/пагинацией, получение по ID, вложенный ресурс (блюда), фильтрацию по кухне, статистику, глобальный обработчик ошибок 500 и логирование с IP-адресом. Научился различать req.params, req.query и req.body. Трудности возникли с порядком маршрутов - маршрут /restaurants/stats пришлось поставить **до** /restaurants/:id, иначе Express принимал stats за ID. Полученные навыки - база для проектирования REST API.
 
 ## Список использованных источников
 1. [Express - Routing](https://expressjs.com/en/guide/routing.html)

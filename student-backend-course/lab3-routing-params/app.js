@@ -10,7 +10,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// ========== ХРАНИЛИЩЕ ==========
+// ХРАНИЛИЩЕ 
 let restaurants = [
   { id: 1, name: 'Пушкин', cuisine: 'Русская', rating: 4.8, address: 'Москва' },
   { id: 2, name: 'Bologna', cuisine: 'Итальянская', rating: 4.5, address: 'Москва' },
@@ -26,13 +26,11 @@ const dishes = {
   3: [{ id: 301, name: 'Суши', price: 900 }]
 };
 
-// ====================================================
-// GET /restaurants — все + search + filter + sort + pagination
-// ====================================================
+// GET /restaurants 
 app.get('/restaurants', (req, res) => {
   let result = [...restaurants];
 
-  // 1. ПОИСК (search)
+  // 1. ПОИСК
   const search = req.query.search;
   if (search) {
     result = result.filter(r =>
@@ -80,7 +78,7 @@ app.get('/restaurants', (req, res) => {
     });
   }
 
-  // 4. ПАГИНАЦИЯ (page=1&limit=10) — ИСПРАВЛЕНО
+  // 4. ПАГИНАЦИЯ
   let page = 1;
   let limit = 10;
 
@@ -157,7 +155,7 @@ app.get('/cuisines/:cuisine/restaurants', (req, res) => {
   res.json({ cuisine, count: filtered.length, restaurants: filtered });
 });
 
-// ========== ОБРАБОТКА 404 ==========
+// ОБРАБОТКА 404 
 app.use((req, res) => {
   res.status(404).json({ error: 'Маршрут не найден' });
 });
