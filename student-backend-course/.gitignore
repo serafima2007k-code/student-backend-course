@@ -1,6 +1,16 @@
-venv/
-.venv/
-__pycache__/
-.vscode/
-.idea/
-*.log
+# 1. Запрещаем всё
+*
+
+# 2. Разрешаем папки с лабами
+!lab1-first-http-server/
+!lab2-http-methods/
+!lab3-routing-params/
+README.md
+
+# 3. Разрешаем всё содержимое внутри этих папок
+!lab1-first-http-server/**
+!lab2-http-methods/**
+!lab3-routing-params/**
+
+# 4. Не забываем разрешить сам .gitignore
+!.gitignore
