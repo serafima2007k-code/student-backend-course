@@ -5,7 +5,7 @@
 !lab1-first-http-server/
 !lab2-http-methods/
 !lab3-routing-params/
-README.md
+!README.md
 
 # 3. Разрешаем всё содержимое внутри этих папок
 !lab1-first-http-server/**
