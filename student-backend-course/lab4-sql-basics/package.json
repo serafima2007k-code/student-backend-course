@@ -1,0 +1,16 @@
+{
+  "name": "lab4-sql-basics",
+  "version": "1.0.0",
+  "description": "**Студент:** Калмазова Серафима Владимировна  \r **Группа:** ПИЖ-б-о-25-1  \r **Вариант:** 14(продвинутый)\r **СУБД:** SQLite (Python)\r ---",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "better-sqlite3": "^13.0.3"
+  }
+}

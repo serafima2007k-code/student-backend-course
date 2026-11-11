@@ -1,16 +1,32 @@
-# 1. Запрещаем всё
-*
+# Системный мусор и настройки
+.vscode/
+.idea/
+.DS_Store
 
-# 2. Разрешаем папки с лабами
-!lab1-first-http-server/
-!lab2-http-methods/
-!lab3-routing-params/
-!README.md
+# Python и Node.js
+__pycache__/
+venv/
+.venv/
+.pytest_cache/
+node_modules/
 
-# 3. Разрешаем всё содержимое внутри этих папок
-!lab1-first-http-server/**
-!lab2-http-methods/**
-!lab3-routing-params/**
+# Базы данных
+*.db
+*.sqlite
 
-# 4. Не забываем разрешить сам .gitignore
-!.gitignore
+# Секреты
+.env
+
+# Тяжелые файлы и документы
+*.exe
+*.zip
+*.log
+*.pdf
+*.docx
+*.doc
+*.xlsx
+
+# Временные файлы для практики
+example.txt
+file_actions.py
+bad_code.py
