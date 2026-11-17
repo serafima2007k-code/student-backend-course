@@ -4,11 +4,8 @@ from gameparts.exceptions import CellOccupiedError, FieldIndexError
 
 # Новая функция для сохранения результата
 def save_result(result):
-    # Открываем файл в режиме 'a' (добавление)
-    file = open('results.txt', 'a', encoding='utf-8')
-    file.write(result + '\n')
-    file.close()
-
+    with open('results.txt', 'a') as f:
+        f.write(result + '\n') 
 
 def main():
     game = Board()
